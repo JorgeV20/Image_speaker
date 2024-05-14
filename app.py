@@ -123,7 +123,7 @@ with col1:
     #output_filename = save_text_to_speech(pred[0], speaker=speakers["slt"])
     #st.audio(output_filename, format="audio/mp3", loop=False)
     else:
-       st.write('You image will appear here')
+       st.write('Your image will appear here')
 
 with col2:
    if uploaded_file!=None:
