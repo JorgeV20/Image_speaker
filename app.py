@@ -6,7 +6,7 @@ from datasets import load_dataset
 import soundfile as sf
 import random
 import string
-
+import time
 #--- IMAGE CAPTION-
 @st.cache_resource
 def model():
@@ -108,12 +108,29 @@ def save_text_to_speech(text, speaker=None):
 #---FRONT END
 
 st.title('Image Speaker')
+with st.sidebar:
+    
+    st.write("You can upload the image you want to describe")
+    uploaded_file =st.file_uploader('Image upload here')
 
-uploaded_file =st.file_uploader('Upload here your image')
+col1, col2 = st.columns(2)
 
-if uploaded_file!=None:
-    st.image(uploaded_file)
-    pred=predict_step([uploaded_file])
+with col1:
+    if uploaded_file!=None:
+        st.image(uploaded_file,  width=300)
+        pred=predict_step([uploaded_file])
+    #st.write(pred[0])
+    #output_filename = save_text_to_speech(pred[0], speaker=speakers["slt"])
+    #st.audio(output_filename, format="audio/mp3", loop=False)
+    else:
+       st.write('You image will appear here')
+
+with col2:
+   if uploaded_file!=None:
+    #st.image(uploaded_file,  width=500)
+    #pred=predict_step([uploaded_file])
+    st.write('The description of the images is: ')
     st.write(pred[0])
     output_filename = save_text_to_speech(pred[0], speaker=speakers["slt"])
+    st.write('You can listen the description too: ')
     st.audio(output_filename, format="audio/mp3", loop=False)
