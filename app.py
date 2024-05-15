@@ -104,7 +104,7 @@ def save_text_to_speech(text, speaker=None):
     # return the filename for reference
     return output_filename
 
-st.cache_resource
+@st.cache_resource
 def load_text_generator():
     gen = pipeline('text-generation', model='gpt2') # uses GPT-2
     return gen
