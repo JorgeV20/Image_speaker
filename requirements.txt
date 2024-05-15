@@ -5,3 +5,4 @@ Pillow
 datasets 
 soundfile
 sentencepiece
+einops

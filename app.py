@@ -1,5 +1,6 @@
 import streamlit as st
 from transformers import VisionEncoderDecoderModel, ViTImageProcessor, AutoTokenizer, SpeechT5Processor, SpeechT5ForTextToSpeech, SpeechT5HifiGan
+from transformers import pipeline
 import torch
 from PIL import Image
 from datasets import load_dataset
@@ -104,6 +105,9 @@ def save_text_to_speech(text, speaker=None):
     return output_filename
 
 
+gen = pipeline('text-generation') # uses GPT-2
+
+
 
 #---FRONT END
 
@@ -134,3 +138,9 @@ with col2:
     output_filename = save_text_to_speech(pred[0], speaker=speakers["slt"])
     st.write('You can listen the description too: ')
     st.audio(output_filename, format="audio/mp3", loop=False)
+    gen_text=gen(pred[0])[0]
+    output_filename_2 = save_text_to_speech(gen_text['generated_text'], speaker=speakers["slt"])
+    st.write('Here you have a little story: ')
+    st.audio(output_filename_2, format="audio/mp3", loop=False)
+    st.write(gen_text['generated_text'])
+    #print(gen_text['generated_text'])
